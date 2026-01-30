@@ -25,9 +25,12 @@ router.get("/getby/:id",async(req,res)=>{
 
 router.post("/add",async(req,res)=>{
     try {
-        let payload = req.body
-        await todoModel.insertOne(payload)
-        res.status(200).json({msg:"Added successfully"})
+        let { title } = req.body;
+        let finalObject = {
+            title,
+        }
+        await todoModel.create(finalObject);
+        res.status(201).json({ msg: "Todo Added Created" })
     } catch (error) {
         console.log(error);
         res.status(500).json({msg:error})
